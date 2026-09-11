@@ -224,6 +224,8 @@ def process_document(
         }
 
     except Exception as exc:
+        
+        print(f"PROCESSING ERROR: {type(exc).__name__}: {exc}")
         # Keep the API response clean.
         # Do not expose stack traces or secrets to the client.
         return {

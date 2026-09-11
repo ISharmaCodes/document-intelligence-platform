@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Document Intelligence Platform</title>
+
+    <meta
+        name="description"
+        content="Extract, validate and review business documents with AI."
+    >
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         Application Shell
+    ====================================================== -->
+
+    <div class="app-shell">
+
+        <!-- Top Navigation -->
+        <header class="topbar">
+
+            <div class="brand">
+                <div class="brand-mark">DI</div>
+
+                <div class="brand-text">
+                    <span class="brand-name">
+                        Document Intelligence
+                    </span>
+
+                    <span class="brand-caption">
+                        Extraction &amp; Validation Platform
+                    </span>
+                </div>
+            </div>
+
+            <div
+                class="api-status"
+                id="apiStatus"
+                aria-live="polite"
+            >
+                <span class="status-dot"></span>
+                <span>Checking API...</span>
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             Main Application
+        ================================================== -->
+
+        <main class="main-content">
+
+            <!-- Page Introduction -->
+            <section class="page-intro">
+
+                <div>
+                    <p class="eyebrow">DOCUMENT INTELLIGENCE</p>
+
+                    <h1>
+                        Turn documents into
+                        <span>structured insights.</span>
+                    </h1>
+
+                    <p class="intro-text">
+                        Upload a business document to extract structured
+                        information and run deterministic financial
+                        validation checks.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 Processing Workspace
+            ================================================== -->
+
+            <section class="workspace-grid">
+
+                <!-- Upload / Processing Card -->
+                <section class="card process-card">
+
+                    <div class="section-heading">
+
+                        <div class="section-icon">
+                            ↑
+                        </div>
+
+                        <div>
+                            <p class="eyebrow">NEW DOCUMENT</p>
+
+                            <h2>Process a document</h2>
+
+                            <p>
+                                Select the document type and upload
+                                your file to begin.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Document Type -->
+
+                    <div class="form-group">
+
+                        <label for="documentType">
+                            Document type
+                        </label>
+
+                        <select id="documentType">
+
+                            <option value="invoice">
+                                Invoice
+                            </option>
+
+                            <option value="balance_sheet">
+                                Balance Sheet
+                            </option>
+
+                            <option value="profit_and_loss">
+                                Profit &amp; Loss
+                            </option>
+
+                            <option value="cash_flow_statement">
+                                Cash Flow Statement
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Upload Area -->
+
+                    <div class="form-group upload-group">
+
+                        <label for="fileInput">
+                            Document
+                        </label>
+
+                        <label
+                            class="upload-zone"
+                            for="fileInput"
+                            id="uploadZone"
+                        >
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                            <div class="upload-copy">
+
+                                <strong>
+                                    Choose a document
+                                </strong>
+
+                                <span>
+                                    PDF, JPG or PNG
+                                </span>
+
+                            </div>
+
+                            <span class="upload-action">
+                                Browse files
+                            </span>
+
+                            <input
+                                type="file"
+                                id="fileInput"
+                                accept=".pdf,.jpg,.jpeg,.png"
+                            >
+
+                        </label>
+
+                        <small class="field-help">
+                            Maximum 10 MB · Maximum 3 pages
+                        </small>
+
+                    </div>
+
+
+                    <!-- Selected File -->
+
+                    <div
+                        id="fileInfo"
+                        class="file-info hidden"
+                    ></div>
+
+
+                    <!-- Error -->
+
+                    <div
+                        id="errorMessage"
+                        class="error-message hidden"
+                        role="alert"
+                    ></div>
+
+
+                    <!-- Process Button -->
+
+                    <button
+                        id="processButton"
+                        class="primary-button"
+                        type="button"
+                    >
+                        <span>Process document</span>
+                        <span class="button-arrow">→</span>
+                    </button>
+
+
+                    <!-- Loading -->
+
+                    <div
+                        id="loadingSection"
+                        class="processing-state hidden"
+                        aria-live="polite"
+                    >
+
+                        <div class="loader"></div>
+
+                        <div>
+                            <strong>
+                                Analyzing document
+                            </strong>
+
+                            <p>
+                                Validating, extracting and running
+                                financial checks...
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- Product Capability Card -->
+
+                <aside class="card capability-card">
+
+                    <p class="eyebrow">
+                        WHAT HAPPENS NEXT
+                    </p>
+
+                    <h2>
+                        From file to verified data.
+                    </h2>
+
+                    <p class="capability-description">
+                        Every document passes through validation,
+                        AI extraction and deterministic financial checks.
+                    </p>
+
+
+                    <div class="workflow">
+
+                        <div class="workflow-step">
+
+                            <div class="workflow-number">
+                                01
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Validate
+                                </strong>
+
+                                <span>
+                                    Check file type, size,
+                                    readability and page count.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="workflow-line"></div>
+
+
+                        <div class="workflow-step">
+
+                            <div class="workflow-number">
+                                02
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Extract
+                                </strong>
+
+                                <span>
+                                    Convert document content into
+                                    structured fields and tables.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="workflow-line"></div>
+
+
+                        <div class="workflow-step">
+
+                            <div class="workflow-number">
+                                03
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Validate numbers
+                                </strong>
+
+                                <span>
+                                    Run deterministic financial
+                                    consistency checks.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </section>
+
+
+            <!-- =================================================
+                 Results
+            ================================================== -->
+
+            <section
+                id="resultsSection"
+                class="results-section hidden"
+            >
+
+                <!-- Result Header -->
+
+                <section class="card result-summary-card">
+
+                    <div class="result-header">
+
+                        <div class="result-title">
+
+                            <p class="eyebrow">
+                                PROCESSING RESULT
+                            </p>
+
+                            <h2 id="resultDocumentName">
+                                Document
+                            </h2>
+
+                            <p>
+                                Structured extraction and validation
+                                results for this document.
+                            </p>
+
+                        </div>
+
+                        <span
+                            id="processingStatus"
+                            class="status-badge"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <!-- Metadata -->
+
+                    <div class="metadata-grid">
+
+                        <div class="metadata-item">
+                            <span>Document type</span>
+                            <strong id="resultDocumentType">-</strong>
+                        </div>
+
+                        <div class="metadata-item">
+                            <span>Pages</span>
+                            <strong id="resultPageCount">-</strong>
+                        </div>
+
+                        <div class="metadata-item">
+                            <span>OCR / Vision</span>
+                            <strong id="resultOCR">-</strong>
+                        </div>
+
+                        <div class="metadata-item metadata-model">
+                            <span>Model</span>
+                            <strong id="resultModel">-</strong>
+                        </div>
+
+                        <div class="metadata-item">
+                            <span>Processing time</span>
+                            <strong id="resultDuration">-</strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     File Validation
+                ================================================== -->
+
+                <section class="card result-card">
+
+                    <div class="section-heading compact">
+
+                        <div class="section-icon validation-icon">
+                            ✓
+                        </div>
+
+                        <div>
+                            <p class="eyebrow">INPUT CHECK</p>
+
+                            <h2>File validation</h2>
+
+                            <p>
+                                The document passed the required
+                                input checks before extraction.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div id="fileValidation"></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     Extracted Information
+                ================================================== -->
+
+                <section class="card result-card">
+
+                    <div class="section-heading compact">
+
+                        <div class="section-icon extraction-icon">
+                            ✦
+                        </div>
+
+                        <div>
+                            <p class="eyebrow">AI EXTRACTION</p>
+
+                            <h2>Extracted information</h2>
+
+                            <p>
+                                Structured information identified
+                                from the uploaded document.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div id="extractedData"></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     Financial Validation
+                ================================================== -->
+
+                <section class="card result-card">
+
+                    <div class="section-heading compact">
+
+                        <div class="section-icon financial-icon">
+                            ∑
+                        </div>
+
+                        <div>
+                            <p class="eyebrow">
+                                DETERMINISTIC CHECKS
+                            </p>
+
+                            <h2>Financial validation</h2>
+
+                            <p>
+                                Independent numerical checks performed
+                                on the extracted financial values.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div id="financialValidations"></div>
+
+                </section>
+
+
+                <!-- =================================================
+                     Raw JSON
+                ================================================== -->
+
+                <section class="card result-card raw-json-card">
+
+                    <details>
+
+                        <summary>
+
+                            <div>
+
+                                <p class="eyebrow">
+                                    DEVELOPER VIEW
+                                </p>
+
+                                <h2>
+                                    Raw API response
+                                </h2>
+
+                            </div>
+
+                            <span class="details-arrow">
+                                +
+                            </span>
+
+                        </summary>
+
+
+                        <div class="raw-json-content">
+
+                            <button
+                                type="button"
+                                id="copyJsonButton"
+                                class="secondary-button"
+                            >
+                                Copy JSON
+                            </button>
+
+                            <pre id="rawJson">No response available.</pre>
+
+                            <div
+                                id="copyMessage"
+                                class="copy-message hidden"
+                            >
+                                JSON copied to clipboard.
+                            </div>
+
+                        </div>
+
+                    </details>
+
+                </section>
+
+            </section>
+
+        </main>
+
+
+        <!-- Footer -->
+
+        <footer class="footer">
+
+            <span>
+                Document Intelligence Platform
+            </span>
+
+            <span>
+                AI extraction · Financial validation · Structured data
+            </span>
+
+        </footer>
+
+    </div>
+
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>

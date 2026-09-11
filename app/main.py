@@ -13,11 +13,15 @@ from app.db.database import init_db
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pathlib import Path
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.v1 import documents, health
 from app.core.config import get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import configure_logging, get_logger
+
 
 settings = get_settings()
 configure_logging(settings)
@@ -35,6 +39,18 @@ def create_app() -> FastAPI:
         ),
         version="0.1.0",
     )
+
+    frontend_dir = Path(__file__).resolve().parent.parent / "frontend"
+
+    app.mount(
+        "/static",
+        StaticFiles(directory=frontend_dir),
+        name="static",
+    )
+
+    @app.get("/", include_in_schema=False)
+    def serve_frontend():
+        return FileResponse(frontend_dir / "index.html")
 
     app.add_middleware(
         CORSMiddleware,
