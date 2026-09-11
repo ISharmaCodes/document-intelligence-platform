@@ -1,0 +1,25 @@
+# --- Core API framework -----------------------------------------------
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.9
+
+# --- Settings / validation --------------------------------------------
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# --- Document processing ----------------------------------------------
+pypdf
+Pillow
+PyMuPDF
+SQLalchemy
+
+# --- Dev / testing ----------------------------------------------------
+pytest==8.3.3
+httpx==0.27.2
+python-dotenv
+
+# --- AI extraction
+groq
+
+# --- Future phases ----------------------------------------------------
+# pdfplumber
