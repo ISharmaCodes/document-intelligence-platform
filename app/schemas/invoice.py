@@ -86,8 +86,8 @@ class InvoiceExtraction(BaseModel):
     document_type: DocumentType = DocumentType.INVOICE
     page_count: Optional[int] = None
 
-    vendor: PartyInfo = Field(default_factory=PartyInfo)
-    buyer: PartyInfo = Field(default_factory=PartyInfo)
+    vendor: Optional[PartyInfo] = None
+    buyer: Optional[PartyInfo] = None
 
     invoice_number: Optional[FieldValue] = None
     invoice_date: Optional[FieldValue] = None

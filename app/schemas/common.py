@@ -216,6 +216,8 @@ class DocumentResponse(BaseModel):
     financial_validations: List[ValidationResult] = Field(default_factory=list)
     processing_status: ProcessingStatus
     processing_metadata: ProcessingMetadata
+    error_code: Optional[str] = None
+    error_message: Optional[str] = None
 
 
 class DocumentSummary(BaseModel):

@@ -224,8 +224,29 @@ def process_document(
         }
 
     except Exception as exc:
-        
+
         print(f"PROCESSING ERROR: {type(exc).__name__}: {exc}")
+
+        error_text = str(exc)
+
+        if "GROQ_RATE_LIMIT:" in error_text:
+            error_code = "GROQ_RATE_LIMIT"
+            error_message = (
+                "AI extraction is temporarily unavailable because the Groq "
+                "rate limit was reached. Please wait briefly and try again."
+            )
+        elif "schema validation" in error_text.lower():
+            error_code = "EXTRACTION_SCHEMA_ERROR"
+            error_message = (
+                "The AI returned data that did not match the required "
+                "extraction structure."
+            )
+        else:
+            error_code = "EXTRACTION_ERROR"
+            error_message = (
+                "The document could not be extracted. Please try again."
+            )
+
         # Keep the API response clean.
         # Do not expose stack traces or secrets to the client.
         return {
@@ -242,7 +263,8 @@ def process_document(
                 "page_count": file_validation.page_count,
                 "duration_ms": _duration_ms(started_at),
             },
-            "error": str(exc),
+            "error_code": error_code,
+            "error_message": error_message,
         }
 
 

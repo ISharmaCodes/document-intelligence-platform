@@ -7,7 +7,7 @@ import os
 from typing import Any, Type
 
 from dotenv import load_dotenv
-from groq import Groq
+from groq import Groq, RateLimitError
 from pydantic import BaseModel, ValidationError
 
 from app.schemas.invoice import InvoiceExtraction
@@ -785,7 +785,11 @@ def _call_vision_model(
                 raise ExtractionError(
                     "The model returned invalid JSON."
                 ) from exc
-
+            
+        except RateLimitError as exc:
+            raise ExtractionError(
+                "GROQ_RATE_LIMIT: Groq rate limit was reached."
+            ) from exc
         except Exception as exc:
             status_code = getattr(exc, "status_code", None)
 
@@ -1021,6 +1025,12 @@ def _call_llm(
                 reasoning_format="hidden",
                 response_format={"type": "json_object"},
             )
+
+        except RateLimitError as exc:
+            raise ExtractionError(
+                "GROQ_RATE_LIMIT: Groq rate limit was reached."
+            ) from exc
+
         except Exception as exc:
             status_code = getattr(exc, "status_code", None)
 
@@ -1367,7 +1377,7 @@ def extract_from_image(
             image_bytes=image_bytes,
             prompt=invoice_prompt,
             mime_type=mime_type,
-            max_completion_tokens=950,
+            max_completion_tokens=1200,
         )
         except ExtractionError as exc:
           raise ExtractionError(
@@ -1439,7 +1449,11 @@ def extract_from_image(
             reasoning_format="hidden",
             response_format={"type": "json_object"},
         )
-
+    except RateLimitError as exc:
+        raise ExtractionError(
+            "GROQ_RATE_LIMIT: Groq rate limit was reached."
+        ) from exc
+    
     except Exception as exc:
         raise ExtractionError(
             f"LLM extraction request failed: {exc}"
@@ -1613,6 +1627,10 @@ Return ONLY valid JSON.
 
     try:
         validated = schema_model.model_validate(raw_data)
+    except RateLimitError as exc:
+        raise ExtractionError(
+            "GROQ_RATE_LIMIT: Groq rate limit was reached."
+        ) from exc
     except ValidationError as exc:
         raise ExtractionError(
             f"LLM text response failed schema validation: {exc}"

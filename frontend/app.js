@@ -184,6 +184,7 @@ async function processDocument() {
 
 function renderResults(data) {
     resultsSection.classList.remove("hidden");
+    console.log("ERROR MESSAGE FROM API:", data.error_message);
 
         renderRawJson(data);
 
@@ -214,12 +215,14 @@ function renderResults(data) {
     renderFileValidation(data.file_validation);
 
     renderExtractedData(
-        data.extracted_data,
-        data.document_type
+    data.extracted_data,
+    data.document_type,
+    data.error_message
     );
 
     renderFinancialValidations(
-        data.financial_validations
+    data.financial_validations,
+    data.error_message
     );
 
     resultsSection.scrollIntoView({
@@ -313,15 +316,20 @@ function renderFileValidation(validation) {
    Extracted data
 ------------------------------------------------------- */
 
-function renderExtractedData(data, type) {
+function renderExtractedData(data, type, errorMessage) {
     if (!data) {
-        extractedData.innerHTML = `
-            <div class="empty-message">
-                No extracted data available.
-            </div>
-        `;
-        return;
-    }
+
+    extractedData.innerHTML = `
+        <div class="empty-message">
+            ${
+                errorMessage
+                    ? `⚠️ ${escapeHtml(errorMessage)}`
+                    : "No extracted data available."
+            }
+        </div>
+    `;
+    return;
+}
 
     let html = "";
 
@@ -508,12 +516,16 @@ function renderGenericData(data) {
    Financial validations
 ------------------------------------------------------- */
 
-function renderFinancialValidations(validations) {
+function renderFinancialValidations(validations, errorMessage) {
     if (!validations || validations.length === 0) {
         financialValidations.innerHTML = `
             <div class="empty-message">
-                No financial validations were applicable.
-            </div>
+            ${
+                errorMessage
+                    ? `⚠️ ${escapeHtml(errorMessage)}`
+                    : "No financial validations were applicable."
+            }
+        </div>
         `;
         return;
     }
