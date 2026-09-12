@@ -9,16 +9,16 @@ Built as an AI Engineer internship technical case study.
 ## Live Demo
 
 **Frontend / Application:**  
-https://document-intelligence-platform-rllz.onrender.com/
+https://document-intelligence-platform-final.onrender.com/
 
 **Backend API:**  
-https://document-intelligence-platform-rllz.onrender.com/api/v1/
+https://document-intelligence-platform-final.onrender.com/api/v1/
 
-**Swagger / OpenAPI:**  
-https://document-intelligence-platform-rllz.onrender.com/docs
+**Swagger:**  
+https://document-intelligence-platform-final.onrender.com/docs
 
 **Health Check:**  
-https://document-intelligence-platform-rllz.onrender.com/api/v1/health
+https://document-intelligence-platform-final.onrender.com/api/v1/health
 
 > The application is deployed as a Dockerized FastAPI service on Render.
 
